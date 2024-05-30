@@ -14,7 +14,7 @@ const create = async (req, res) => {
   }
 };
 
-//SEE ALL SITTERS
+//SEE ALL SITTERS (FEATURED LISTING)
 const getAll = async (req, res) => {
   const sitters = await Sitter.find({});
   res.json(sitters);
