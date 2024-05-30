@@ -22,6 +22,7 @@ app.get("/api", (req, res) => {
   res.json({ hello: "world" });
 });
 app.use("/api/users", require("./routes/api/usersRoutes"));
+app.use("/api/sitters", require("./routes/api/sitterRoutes"));
 
 //m what they cannot catch, they throw here.
 app.get("/*", function (req, res) {

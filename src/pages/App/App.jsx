@@ -6,6 +6,7 @@ import { LandingPage } from "../LandingPage";
 import { getUser } from "../../utilities/users-service";
 import AuthPage from "../AuthPage/AuthPage";
 import LoginForm from "../../components/LoginForm/LoginForm";
+import SitterForm from "../../components/SitterForm/SitterForm";
 
 const log = debug("mern:pages:App:App");
 
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route path="/sitterform" element={<SitterForm />} />
         </Routes>
       </main>
     </>
