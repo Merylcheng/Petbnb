@@ -10,8 +10,7 @@ const SitterForm = () => {
     charges: "",
     pet: "",
     petSize: "Small", // Default to 'Small'
-    // Uncomment if imageUrl is necessary
-    // imageUrl: '',
+    image: null,
   });
 
   const handleChange = (e) => {
@@ -19,15 +18,21 @@ const SitterForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleImageChange = (e) => {
+    setFormData({ ...formData, image: e.target.files[0] });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = new FormData();
+    for (const key in formData) {
+      form.append(key, formData[key]);
+    }
+
     try {
       const response = await fetch("/api/sitters", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+        body: form,
       });
 
       if (!response.ok) {
@@ -36,10 +41,8 @@ const SitterForm = () => {
 
       const data = await response.json();
       console.log("Sitter created:", data);
-      // Handle successful creation (e.g., redirect, display message, etc.)
     } catch (error) {
       console.error("Error creating sitter:", error.message);
-      // Handle error (e.g., display error message)
     }
   };
 
@@ -127,11 +130,10 @@ const SitterForm = () => {
           <option value="Large">Large</option>
         </select>
       </div>
-      {/* Uncomment if imageUrl is necessary */}
-      {/* <div>
-        <label>Image URL:</label>
-        <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleChange} required />
-      </div> */}
+      <div>
+        <label>Image:</label>
+        <input type="file" name="image" onChange={handleImageChange} required />
+      </div>
       <button type="submit">Create Sitter</button>
     </form>
   );

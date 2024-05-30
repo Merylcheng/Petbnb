@@ -35,12 +35,12 @@ const sitterSchema = new Schema(
     petSize: {
       type: String,
       required: true,
-      enum: ["Small", "Medium", "Large"], // Example enum for pet size
+      enum: ["Small", "Medium", "Large"],
     },
-    // imageUrl: {
-    //   type: String,
-    //   required: true,
-    // },
+    imageUrl: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
