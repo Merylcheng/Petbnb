@@ -9,10 +9,22 @@ export default function NavBar({ setUser }) {
 
   return (
     <nav>
-      <NavLink to="/orders">Order History</NavLink>
-      &nbsp; | &nbsp;
-      <NavLink to="/orders/new">New Order</NavLink>
-      &nbsp;&nbsp;
+      <NavLink to="/" className="text-xl font-bold text-gray-900">
+        Petbnb
+      </NavLink>
+      {/* <NavLink
+        to="/sitterapply"
+        className="bg-indigo-600 text-white text-sm font-semibold px-4 py-2 rounded-md hover:bg-indigo-500"
+      >
+        Become a Sitter
+      </NavLink> */}
+      <NavLink
+        to="/login"
+        className="text-sm font-semibold text-indigo-600 hover:text-indigo-500"
+      >
+        Login
+      </NavLink>
+
       <Link to="" onClick={handleLogOut}>
         Log Out
       </Link>

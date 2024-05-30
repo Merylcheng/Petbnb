@@ -12,6 +12,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.19",
     "bcrypt": "^5.1.1",
     "debug": "^4.3.4",
     "dotenv": "^16.4.5",
@@ -19,10 +20,12 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.4",
     "morgan": "^1.10.0",
+    "postcss": "^8.4.38",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "tailwindcss": "^3.4.3"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
