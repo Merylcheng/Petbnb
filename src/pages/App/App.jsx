@@ -54,6 +54,7 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 import SitterForm from "../../components/SitterForm/SitterForm";
 import SitterDetails from "../SitterDetails";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import SitterDashboard from "../SitterDashboard";
 
 const log = debug("mern:pages:App:App");
 
@@ -75,6 +76,7 @@ function App() {
           <>
             <Route path="/sitterform" element={<SitterForm />} />
             <Route path="/sitters/:id" element={<SitterDetails />} />
+            <Route path="/sitterdashboard" element={<SitterDashboard />} />
           </>
         )}
       </Routes>

@@ -49,6 +49,11 @@ export default function NavBar({ user, setUser }) {
 
   return (
     <nav className="flex items-center justify-between p-4">
+      <img
+        className="h-8 w-auto"
+        src="public/images/pawprint.png"
+        alt="Petbnb Logo"
+      />
       <NavLink to="/" className="text-xl font-bold text-gray-900">
         Petbnb
       </NavLink>
