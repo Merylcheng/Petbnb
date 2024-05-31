@@ -2,20 +2,50 @@ import { useState } from "react";
 
 const SitterForm = () => {
   const [formData, setFormData] = useState({
-    title: "",
     name: "",
     location: "",
+    contact: "",
     bio: "",
     experience: "",
     charges: "",
-    pet: "",
-    petSize: "Small", // Default to 'Small'
+    pet: [],
+    petSize: [],
     image: null,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handlePetChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setFormData((prevState) => ({
+        ...prevState,
+        pet: [...prevState.pet, value],
+      }));
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        pet: prevState.pet.filter((pet) => pet !== value),
+      }));
+    }
+  };
+
+  const handlePetSizeChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setFormData((prevState) => ({
+        ...prevState,
+        petSize: [...prevState.petSize, value],
+      }));
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        petSize: prevState.petSize.filter((size) => size !== value),
+      }));
+    }
   };
 
   const handleImageChange = (e) => {
@@ -26,7 +56,11 @@ const SitterForm = () => {
     e.preventDefault();
     const form = new FormData();
     for (const key in formData) {
-      form.append(key, formData[key]);
+      if (key === "pet" || key === "petSize") {
+        formData[key].forEach((item) => form.append(key, item));
+      } else {
+        form.append(key, formData[key]);
+      }
     }
 
     try {
@@ -49,16 +83,6 @@ const SitterForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Title:</label>
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
         <label>Name:</label>
         <input
           type="text"
@@ -74,6 +98,16 @@ const SitterForm = () => {
           type="text"
           name="location"
           value={formData.location}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Contact:</label>
+        <input
+          type="text"
+          name="contact"
+          value={formData.contact}
           onChange={handleChange}
           required
         />
@@ -109,26 +143,67 @@ const SitterForm = () => {
       </div>
       <div>
         <label>Pet:</label>
-        <input
-          type="text"
-          name="pet"
-          value={formData.pet}
-          onChange={handleChange}
-          required
-        />
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              value="Dog"
+              checked={formData.pet.includes("Dog")}
+              onChange={handlePetChange}
+            />
+            Dog
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="Cat"
+              checked={formData.pet.includes("Cat")}
+              onChange={handlePetChange}
+            />
+            Cat
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="Small Animals"
+              checked={formData.pet.includes("Small Animals")}
+              onChange={handlePetChange}
+            />
+            Small Animals
+          </label>
+        </div>
       </div>
       <div>
         <label>Pet Size:</label>
-        <select
-          name="petSize"
-          value={formData.petSize}
-          onChange={handleChange}
-          required
-        >
-          <option value="Small">Small</option>
-          <option value="Medium">Medium</option>
-          <option value="Large">Large</option>
-        </select>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              value="Small"
+              checked={formData.petSize.includes("Small")}
+              onChange={handlePetSizeChange}
+            />
+            Small
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="Medium"
+              checked={formData.petSize.includes("Medium")}
+              onChange={handlePetSizeChange}
+            />
+            Medium
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="Large"
+              checked={formData.petSize.includes("Large")}
+              onChange={handlePetSizeChange}
+            />
+            Large
+          </label>
+        </div>
       </div>
       <div>
         <label>Image:</label>
