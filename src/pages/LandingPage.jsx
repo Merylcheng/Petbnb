@@ -1,3 +1,4 @@
+import FAQSection from "../components/Landing/FAQSection";
 import Featured from "../components/Landing/Featured";
 import HowItWorks from "../components/Landing/HowItWorks";
 import SearchBar from "../components/Landing/SearchBar";
@@ -10,6 +11,7 @@ export const LandingPage = () => {
       <HowItWorks />
       <SearchBar />
       <Featured />
+      <FAQSection />
     </div>
   );
 };
