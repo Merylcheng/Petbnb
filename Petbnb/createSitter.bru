@@ -5,7 +5,20 @@ meta {
 }
 
 post {
-  url: 
-  body: none
+  url: http://localhost:3000/api/sitters
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "title": "Professional Pet Sitter",
+    "name": "Jane Doe",
+    "location": "New York, NY",
+    "bio": "Experienced pet sitter with over 5 years of experience in taking care of various pets. Passionate about animals and dedicated to providing the best care possible.",
+    "experience": "5 years",
+    "charges": 50,
+    "pet": "Dog",
+    "petSize": "Medium"
+  }
 }

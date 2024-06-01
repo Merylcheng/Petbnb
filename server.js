@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 // Configure both serve-favicon & static middleware
 // to serve from the production 'build' folder
 app.use(express.static(path.join(__dirname, "dist")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(require("./config/checkToken").checkTokenMiddleware);
 
 // Put API routes here, before the "catch all" route

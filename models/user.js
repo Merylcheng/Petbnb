@@ -20,6 +20,8 @@ const userSchema = new Schema(
       minLength: 3,
       required: true,
     },
+    // role: { type: String, enum: ["user", "sitter"], required: true },
+    // role: { type: String, enum: ["user", "sitter"] },
   },
   {
     timestamps: true,
@@ -29,7 +31,7 @@ const userSchema = new Schema(
         return ret;
       },
     },
-  },
+  }
 );
 
 userSchema.pre("save", async function (next) {
