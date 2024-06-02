@@ -33,8 +33,22 @@ const getSitterById = async (req, res) => {
   }
 };
 
+// DELETE SITTER BY ID
+const deleteById = async (req, res) => {
+  try {
+    const sitter = await Sitter.findByIdAndDelete(req.params.id);
+    if (!sitter) {
+      return res.status(404).json({ message: "Sitter not found" });
+    }
+    res.status(200).json({ message: "Sitter deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getSitterById,
+  deleteById,
 };
