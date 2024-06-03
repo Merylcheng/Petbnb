@@ -1,47 +1,3 @@
-// import debug from "debug";
-// import { useNavigate } from "react-router-dom";
-// import { login } from "../../utilities/users-service";
-
-// const log = debug("mern:components:LoginForm");
-
-// export default function LoginForm({ setUser }) {
-//   const navigate = useNavigate();
-
-//   const handleSubmit = async (event) => {
-//     event.preventDefault();
-
-//     const formData = new FormData(event.target);
-//     const data = Object.fromEntries(formData);
-
-//     log("data: %o", data);
-//     const { email, password } = data;
-//     const user = await login(email, password);
-//     setUser(user);
-//     navigate("/");
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <fieldset>
-//         <legend>Login</legend>
-
-//         <label>
-//           Email:
-//           <input name="email" />
-//         </label>
-//         <br />
-
-//         <label>
-//           Password:
-//           <input name="password" />
-//         </label>
-//         <br />
-//         <button>Login</button>
-//       </fieldset>
-//     </form>
-//   );
-// }
-
 import debug from "debug";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../utilities/users-service";
@@ -58,8 +14,8 @@ export default function LoginForm({ setUser }) {
     const data = Object.fromEntries(formData);
 
     log("data: %o", data);
-    const { email, password } = data;
-    const user = await login(email, password);
+    const { email, password, role } = data;
+    const user = await login(email, password, role);
     setUser(user);
     navigate("/");
   };
@@ -93,6 +49,20 @@ export default function LoginForm({ setUser }) {
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
+          </label>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700">
+            Role:
+            <select
+              name="role"
+              required
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="user">User</option>
+              <option value="sitter">Sitter</option>
+            </select>
           </label>
         </div>
 

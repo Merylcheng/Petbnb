@@ -10,6 +10,7 @@ export default class SignUpForm extends Component {
     email: "",
     password: "",
     confirm: "",
+    role: "user",
     error: "",
   };
 
@@ -77,6 +78,19 @@ export default class SignUpForm extends Component {
               value={this.state.confirm}
               onChange={this.handleChange}
             />
+          </label>
+          <br />
+
+          <label>
+            Role:
+            <select
+              name="role"
+              value={this.state.role}
+              onChange={this.handleChange}
+            >
+              <option value="user">User</option>
+              <option value="sitter">Sitter</option>
+            </select>
           </label>
           <br />
 
