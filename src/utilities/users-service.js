@@ -24,6 +24,54 @@ export function getUser() {
   return token ? JSON.parse(atob(token.split(".")[1])).user : null;
 }
 
+// export function getToken() {
+//   const token = localStorage.getItem("token");
+
+//   if (!token) {
+//     // Token doesn't exist in localStorage
+//     return null;
+//   }
+
+//   const tokenParts = token.split(".");
+
+//   if (tokenParts.length !== 3) {
+//     // Token doesn't have three parts (header, payload, signature)
+//     console.error("Invalid token format");
+//     return null;
+//   }
+
+//   try {
+//     const payload = JSON.parse(atob(tokenParts[1]));
+//     // Check token expiration
+//     if (payload.exp && payload.exp < Date.now() / 1000) {
+//       // Token has expired
+//       console.warn("Token has expired");
+//       localStorage.removeItem("token");
+//       return null;
+//     }
+//     return token;
+//   } catch (error) {
+//     console.error("Error decoding token:", error.message);
+//     return null;
+//   }
+// }
+
+// export function getUser() {
+//   const token = getToken();
+
+//   if (!token) {
+//     return null;
+//   }
+
+//   try {
+//     const payload = JSON.parse(atob(token.split(".")[1]));
+//     return payload.user || null;
+//   } catch (error) {
+//     console.error("Error decoding user from token:", error.message);
+//     return null;
+//   }
+// }
+
 export const signUp = async (userData) => {
   log("userData: %o", userData);
 
