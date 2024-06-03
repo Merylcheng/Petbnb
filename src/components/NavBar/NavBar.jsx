@@ -119,7 +119,7 @@ export default function NavBar({ user, setUser }) {
         Petbnb
       </NavLink>
       <NavLink
-        to="/sitterform"
+        to="/beasitter"
         className="bg-indigo-600 text-white text-sm font-semibold px-4 py-2 rounded-md hover:bg-indigo-500"
       >
         Become a Sitter

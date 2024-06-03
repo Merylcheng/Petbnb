@@ -56,6 +56,7 @@ import SitterDetails from "../SitterDetails";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import SitterDashboard from "../SitterDashboard";
 import SitterProfileForm from "../../components/SitterProfileForm/SitterProfileForm";
+import BeASitter from "../BeASitter";
 
 const log = debug("mern:pages:App:App");
 
@@ -68,6 +69,7 @@ function App() {
       <NavBar user={user} setUser={setUser} />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/beasitter" element={<BeASitter />} />
         {!user ? (
           <>
             <Route path="/login" element={<LoginForm setUser={setUser} />} />
