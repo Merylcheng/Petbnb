@@ -189,3 +189,8 @@ hashing -> algo(text) -> hash
 
 Authentication -> check if the person is who he says he is
 Authorization -> check if the person can do he wants
+
+## Reference
+
+https://www.flaticon.com/
+https://www.freepik.com/
