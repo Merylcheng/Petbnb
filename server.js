@@ -24,6 +24,7 @@ app.get("/api", (req, res) => {
 });
 app.use("/api/users", require("./routes/api/usersRoutes"));
 app.use("/api/sitters", require("./routes/api/sitterRoutes"));
+app.use("/api/messages", require("./routes/api/messageRoutes"));
 
 //m what they cannot catch, they throw here.
 app.get("/*", function (req, res) {
