@@ -46,9 +46,24 @@ const deleteById = async (req, res) => {
   }
 };
 
+const search = async (req, res) => {
+  try {
+    let query = {};
+    if (req.query.location) {
+      query.location = req.query.location.trim();
+      console.log(`Search location: ${query.location}`);
+    }
+    const sitters = await Sitter.find(query);
+    res.json(sitters);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getSitterById,
   deleteById,
+  search,
 };

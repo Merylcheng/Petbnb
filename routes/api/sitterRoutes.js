@@ -7,5 +7,6 @@ router.post("/", upload.single("image"), sittersCtrl.create);
 router.get("/", sittersCtrl.getAll);
 router.get("/:id", sittersCtrl.getSitterById);
 router.delete("/:id", sittersCtrl.deleteById);
+router.get("/search", sittersCtrl.search);
 
 module.exports = router;
