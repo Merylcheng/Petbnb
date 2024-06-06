@@ -8,7 +8,7 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 import SitterForm from "../../components/SitterForm/SitterForm";
 import SitterDetails from "../SitterDetails";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
-import SitterDashboard from "../SitterDashboard";
+import Dashboard from "../Dashboard";
 import SitterProfileForm from "../../components/SitterProfileForm/SitterProfileForm";
 import BeASitter from "../BeASitter";
 import Messages from "../Messages";
@@ -34,7 +34,7 @@ function App() {
           <>
             <Route path="/sitterform" element={<SitterForm />} />
             <Route path="/sitters/:id" element={<SitterDetails />} />
-            <Route path="/sitterdashboard" element={<SitterDashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<SitterProfileForm />} />
             <Route path="/messages/:receiverId" element={<Messages />} />{" "}
           </>

@@ -1,7 +1,7 @@
 // import SitterDetails from "./SitterDetails";
 import MyCalendar from "../components/Calendar/MyCalendar";
 
-function SitterDashboard() {
+function Dashboard() {
   return (
     <div>
       BOOKING HERE!
@@ -10,4 +10,4 @@ function SitterDashboard() {
   );
 }
 
-export default SitterDashboard;
+export default Dashboard;
