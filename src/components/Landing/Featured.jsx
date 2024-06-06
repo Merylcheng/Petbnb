@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Featured() {
   const [sitters, setSitters] = useState([]);
@@ -35,6 +36,9 @@ function Featured() {
             <p>Pet: {sitter.pet}</p>
             <p>Pet Size: {sitter.petSize}</p>
             {sitter.imageUrl && <img src={sitter.imageUrl} alt={sitter.name} />}
+            <Link to={`/sitters/${sitter._id}`}>
+              <button>View Details</button>
+            </Link>
           </li>
         ))}
       </ul>
