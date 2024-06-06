@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const SitterDetails = () => {
   const { id } = useParams();
   const [sitter, setSitter] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchSitter = async () => {
@@ -15,54 +13,60 @@ const SitterDetails = () => {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        setSitter(data);
+        setSitter({ data, error: null });
       } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+        setSitter({ data: null, error: error.message });
       }
     };
 
     fetchSitter();
   }, [id]);
 
-  if (loading) {
+  if (sitter === null) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (sitter.error) {
+    return <div>Error: {sitter.error}</div>;
   }
 
-  if (!sitter) {
+  if (!sitter.data) {
     return <div>No sitter found</div>;
   }
 
   return (
     <div>
-      <h1>{sitter.name}</h1>
-      <img src={sitter.imageUrl} alt={sitter.name} />
+      <h1>{sitter.data.name}</h1>
+      <img src={sitter.data.imageUrl} alt={sitter.data.name} />
       <p>
-        <strong>Title:</strong> {sitter.title}
+        <strong>Title:</strong> {sitter.data.title}
       </p>
       <p>
-        <strong>Location:</strong> {sitter.location}
+        <strong>Location:</strong> {sitter.data.location}
       </p>
       <p>
-        <strong>Bio:</strong> {sitter.bio}
+        <strong>Bio:</strong> {sitter.data.bio}
       </p>
       <p>
-        <strong>Experience:</strong> {sitter.experience}
+        <strong>Experience:</strong> {sitter.data.experience}
       </p>
       <p>
-        <strong>Charges:</strong> ${sitter.charges}
+        <strong>Charges:</strong> ${sitter.data.charges}
       </p>
       <p>
-        <strong>Pet:</strong> {sitter.pet}
+        <strong>Pet:</strong> {sitter.data.pet}
       </p>
       <p>
-        <strong>Pet Size:</strong> {sitter.petSize}
+        <strong>Pet Size:</strong> {sitter.data.petSize}
       </p>
+      <br />
+      <Link to="/dashboard">
+        <button>Book Services Here!</button>
+      </Link>
+      <br />
+      <Link to="/messages/:receiverId">
+        <button>Contact us here!</button>
+      </Link>
     </div>
   );
 };

@@ -1,13 +1,12 @@
 import debug from "debug";
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import NavBar from "../../components/NavBar/NavBar";
 import { LandingPage } from "../LandingPage";
 import { getUser } from "../../utilities/users-service";
+import NavBar from "../../components/NavBar/NavBar";
 import LoginForm from "../../components/LoginForm/LoginForm";
-import SitterForm from "../../components/SitterForm/SitterForm";
-import SitterDetails from "../SitterDetails";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import SitterDetails from "../SitterDetails";
 import Dashboard from "../Dashboard";
 import SitterProfileForm from "../../components/SitterProfileForm/SitterProfileForm";
 import BeASitter from "../BeASitter";
@@ -40,7 +39,6 @@ const App = () => {
           user.role === "sitter" && (
             <>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/sitterform" element={<SitterForm />} />
               <Route path="/sitters/:id" element={<SitterDetails />} />
               <Route path="/profile" element={<SitterProfileForm />} />
               <Route path="/messages/:receiverId" element={<Messages />} />
@@ -55,3 +53,5 @@ const App = () => {
 export default App;
 
 //66616d21c8d23c91c8e50f46 owner
+
+//66616e1cc8d23c91c8e50f4e
