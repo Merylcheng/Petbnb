@@ -1,10 +1,11 @@
 // import SitterDetails from "./SitterDetails";
+import MyCalendar from "../components/Calendar/MyCalendar";
 
 function SitterDashboard() {
   return (
     <div>
-      hi
-      {/* <SitterDetails /> */}
+      BOOKING HERE!
+      <MyCalendar />
     </div>
   );
 }

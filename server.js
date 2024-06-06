@@ -18,6 +18,9 @@ app.use(express.static(path.join(__dirname, "dist")));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(require("./config/checkToken").checkTokenMiddleware);
 
+//for calendar may not need. pls check
+// app.use(express.static(path.join(__dirname, "frontend", "build")));
+
 // Put API routes here, before the "catch all" route
 app.get("/api", (req, res) => {
   res.json({ hello: "world" });
@@ -25,6 +28,7 @@ app.get("/api", (req, res) => {
 app.use("/api/users", require("./routes/api/usersRoutes"));
 app.use("/api/sitters", require("./routes/api/sitterRoutes"));
 app.use("/api/messages", require("./routes/api/messageRoutes"));
+app.use("/api/bookings", require("./routes/api/bookingRoutes"));
 
 //m what they cannot catch, they throw here.
 app.get("/*", function (req, res) {
