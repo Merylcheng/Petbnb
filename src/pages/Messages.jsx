@@ -5,7 +5,7 @@ const Messages = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const { receiverId } = useParams();
-
+  console.log(receiverId);
   useEffect(() => {
     console.log("Fetching messages...");
     fetch("/api/messages", {

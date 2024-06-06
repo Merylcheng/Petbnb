@@ -16,7 +16,7 @@ export default function LoginForm({ setUser }) {
     log("data: %o", data);
     const { email, password, role } = data;
     const user = await login(email, password, role);
-    setUser(user);
+    setUser(user); // store
     navigate("/");
   };
 

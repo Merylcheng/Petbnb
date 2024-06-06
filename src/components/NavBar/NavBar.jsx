@@ -29,7 +29,7 @@ export default function NavBar({ user, setUser }) {
             Welcome, {user.name}
           </span>
           <NavLink
-            to="/messages/:receiverId"
+            to="/messages/receiverId"
             className="text-sm font-semibold text-indigo-600 hover:text-indigo-500"
           >
             Inbox

@@ -13,7 +13,7 @@ const authenticateUser = (req, res, next) => {
 // Send a message
 router.post("/", checkTokenMiddleware, authenticateUser, async (req, res) => {
   const { receiver, messageContent } = req.body;
-  const sender = getUser(req, res)._id;
+  const sender = getUser(req, res)._id; //go to token and decipher.
 
   try {
     const message = new Message({ sender, receiver, messageContent });
@@ -31,11 +31,12 @@ router.get("/", checkTokenMiddleware, authenticateUser, async (req, res) => {
 
   try {
     const messages = await Message.find({
+      //Mongo query finds messages where current user is either sender or receiver
       $or: [{ sender: userId }, { receiver: userId }],
     })
       .populate({
         path: "sender",
-        select: "name", // Only select the 'name' field of the sender
+        select: "name",
       })
       .populate("receiver", "name"); // Also populate the receiver's name
 
@@ -44,5 +45,7 @@ router.get("/", checkTokenMiddleware, authenticateUser, async (req, res) => {
     res.status(400).send(error);
   }
 });
+
+//
 
 module.exports = router;
