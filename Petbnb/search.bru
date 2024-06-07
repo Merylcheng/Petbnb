@@ -5,9 +5,13 @@ meta {
 }
 
 get {
-  url: http://localhost:3000/api/sitters
+  url: http://localhost:3000/api/sitters?location=Tampines
   body: none
   auth: none
+}
+
+query {
+  location: Tampines
 }
 
 body:json {

@@ -1,6 +1,6 @@
 import debug from "debug";
 import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { LandingPage } from "../LandingPage";
 import { getUser } from "../../utilities/users-service";
 import NavBar from "../../components/NavBar/NavBar";
@@ -11,6 +11,7 @@ import Dashboard from "../Dashboard";
 import SitterProfileForm from "../../components/SitterProfileForm/SitterProfileForm";
 import BeASitter from "../BeASitter";
 import Messages from "../Messages";
+import AuthPage from "../AuthPage/AuthPage";
 
 const log = debug("mern:pages:App:App");
 
@@ -24,6 +25,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/beasitter" element={<BeASitter />} />
+        <Route path="/auth" element={<AuthPage />} />
         {!user ? (
           <>
             <Route path="/login" element={<LoginForm setUser={setUser} />} />
@@ -35,16 +37,15 @@ const App = () => {
             <Route path="/sitters/:id" element={<SitterDetails />} />
             <Route path="/messages/:receiverId" element={<Messages />} />
           </>
-        ) : (
-          user.role === "sitter" && (
-            <>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/sitters/:id" element={<SitterDetails />} />
-              <Route path="/profile" element={<SitterProfileForm />} />
-              <Route path="/messages/:receiverId" element={<Messages />} />
-            </>
-          )
-        )}
+        ) : user.role === "sitter" ? (
+          <>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/sitters/:id" element={<SitterDetails />} />
+            <Route path="/profile" element={<SitterProfileForm />} />
+            <Route path="/messages/:receiverId" element={<Messages />} />
+          </>
+        ) : null}
+        <Route path="*" element={<Navigate to="/auth" />} />
       </Routes>
     </main>
   );

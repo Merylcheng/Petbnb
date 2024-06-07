@@ -4,8 +4,16 @@ meta {
   seq: 8
 }
 
-get {
+post {
   url: http://localhost:3000/api/messages/66583623d93a8b100ecc9392
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "sender": "66572b683d21c39aeb26cd1c",
+    "receiver": "665dceaa8e608fe51d3b4a5e",
+    "messageContent": "Hi, I would like to know if you are available for dog sitting this weekend."
+  }
 }
