@@ -7,7 +7,6 @@ import NavBar from "../../components/NavBar/NavBar";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import SitterDetails from "../SitterDetails";
-// import Dashboard from "../Dashboard";
 import SitterProfileForm from "../../components/SitterProfileForm/SitterProfileForm";
 import BeASitter from "../BeASitter";
 import Messages from "../Messages";
@@ -34,7 +33,6 @@ const App = () => {
           </>
         ) : user.role === "user" ? (
           <>
-            {/* <Route path="/dashboard" element={<Dashboard user={user} />} /> */}
             <Route
               path="/sitters/:id"
               element={<SitterDetails user={user} />}
@@ -50,7 +48,6 @@ const App = () => {
           </>
         ) : user.role === "sitter" ? (
           <>
-            {/* <Route path="/dashboard" element={<Dashboard user={user} />} /> */}
             <Route
               path="/sitters/:id"
               element={<SitterDetails user={user} />}

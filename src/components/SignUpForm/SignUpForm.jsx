@@ -10,7 +10,7 @@ export default class SignUpForm extends Component {
     email: "",
     password: "",
     confirm: "",
-    role: "user",
+    role: "petowner",
     error: "",
   };
 
@@ -88,7 +88,7 @@ export default class SignUpForm extends Component {
               value={this.state.role}
               onChange={this.handleChange}
             >
-              <option value="user">User</option>
+              <option value="user">Petowner</option>
               <option value="sitter">Sitter</option>
             </select>
           </label>
