@@ -7,11 +7,12 @@ import NavBar from "../../components/NavBar/NavBar";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import SitterDetails from "../SitterDetails";
-import Dashboard from "../Dashboard";
+// import Dashboard from "../Dashboard";
 import SitterProfileForm from "../../components/SitterProfileForm/SitterProfileForm";
 import BeASitter from "../BeASitter";
 import Messages from "../Messages";
 import AuthPage from "../AuthPage/AuthPage";
+import MyCalendar from "../../components/Calendar/MyCalendar";
 
 const log = debug("mern:pages:App:App");
 
@@ -33,16 +34,39 @@ const App = () => {
           </>
         ) : user.role === "user" ? (
           <>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/sitters/:id" element={<SitterDetails />} />
-            <Route path="/messages/:receiverId" element={<Messages />} />
+            {/* <Route path="/dashboard" element={<Dashboard user={user} />} /> */}
+            <Route
+              path="/sitters/:id"
+              element={<SitterDetails user={user} />}
+            />
+            <Route
+              path="/messages/:receiverId"
+              element={<Messages user={user} />}
+            />
+            <Route
+              path="/calendar"
+              element={<MyCalendar userRole={user.role} userId={user._id} />}
+            />
           </>
         ) : user.role === "sitter" ? (
           <>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/sitters/:id" element={<SitterDetails />} />
-            <Route path="/profile" element={<SitterProfileForm />} />
-            <Route path="/messages/:receiverId" element={<Messages />} />
+            {/* <Route path="/dashboard" element={<Dashboard user={user} />} /> */}
+            <Route
+              path="/sitters/:id"
+              element={<SitterDetails user={user} />}
+            />
+            <Route
+              path="/profile"
+              element={<SitterProfileForm user={user} />}
+            />
+            <Route
+              path="/messages/:receiverId"
+              element={<Messages user={user} />}
+            />
+            <Route
+              path="/calendar"
+              element={<MyCalendar userRole={user.role} userId={user._id} />}
+            />
           </>
         ) : null}
         <Route path="*" element={<Navigate to="/auth" />} />
@@ -52,7 +76,3 @@ const App = () => {
 };
 
 export default App;
-
-//66616d21c8d23c91c8e50f46 owner
-
-//66616e1cc8d23c91c8e50f4e

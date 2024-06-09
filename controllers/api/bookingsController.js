@@ -1,9 +1,13 @@
 const Booking = require("../../models/Booking");
+// const User = require("../../models/user");
 
-// GET ALL
+// GET ALL BOOKINGS FOR A SPECIFIC USER
 const getAllBookings = async (req, res) => {
+  const { userId } = req.query;
   try {
-    const bookings = await Booking.find().populate("sitter user");
+    const bookings = await Booking.find({ user: userId }).populate(
+      "sitter user"
+    );
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -19,6 +23,11 @@ const createBooking = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+};
+
+module.exports = {
+  createBooking,
+  getAllBookings,
 };
 
 // // UPDATE BOOKING
@@ -45,7 +54,12 @@ const createBooking = async (req, res) => {
 //   }
 // };
 
-module.exports = {
-  createBooking,
-  getAllBookings,
-};
+// // GET ALL
+// const getAllBookings = async (req, res) => {
+//   try {
+//     const bookings = await Booking.find().populate("sitter user");
+//     res.json(bookings);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };

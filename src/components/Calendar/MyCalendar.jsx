@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -7,35 +7,39 @@ import BookingForm from "./BookingForm";
 // allow big cal to uds and format dates correctly
 const localizer = momentLocalizer(moment);
 
-const MyCalendar = () => {
+const MyCalendar = ({ userId }) => {
   const [bookings, setBookings] = useState([]);
 
-  useEffect(() => {
-    fetchBookings();
-  }, []);
-
-  const fetchBookings = async () => {
+  const fetchBookings = useCallback(async () => {
     try {
-      const response = await fetch("/api/bookings");
+      const response = await fetch(`/api/bookings?userId=${userId}`); //BOOKING DETAILS BASED ON USER
       if (!response.ok) {
         throw new Error("Failed to fetch bookings");
       }
       const data = await response.json();
+      console.log("Fetched bookings:", data); //CHECK ID
       setBookings(data);
     } catch (error) {
       console.error("Error fetching bookings:", error);
     }
-  };
+  }, [userId]);
 
-  //new booking, look into hardcoded id and alternatives
+  useEffect(() => {
+    if (userId) {
+      fetchBookings();
+    }
+  }, [userId, fetchBookings]);
+
+  //NEW BOOKING, BASED ON ID. LOOK INTO TAG USER TO SITTER AFTER SUBMIT
   const handleBookingSubmit = async (booking) => {
     const { title, startDate, endDate } = booking;
+
     const newBooking = {
       title,
       startDate,
       endDate,
-      sitter: "665dceaa8e608fe51d3b4a5e",
-      user: "66572b683d21c39aeb26cd1c",
+      sitter: userId,
+      user: userId,
     };
 
     try {

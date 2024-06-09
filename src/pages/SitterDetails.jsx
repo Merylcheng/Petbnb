@@ -60,7 +60,7 @@ const SitterDetails = () => {
         <strong>Pet Size:</strong> {sitter.data.petSize}
       </p>
       <br />
-      <Link to="/dashboard">
+      <Link to="/calendar">
         <button>Book Services Here!</button>
       </Link>
       <br />

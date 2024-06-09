@@ -8,7 +8,3 @@ router.post("/", bookingsCtrl.createBooking);
 // router.delete("/:id", bookingsCtrl.deleteBooking);
 
 module.exports = router;
-
-//665dceaa8e608fe51d3b4a5e
-
-//66572b683d21c39aeb26cd1c
