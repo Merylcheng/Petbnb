@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -10,34 +10,34 @@ const localizer = momentLocalizer(moment);
 const MyCalendar = ({ userId }) => {
   const [bookings, setBookings] = useState([]);
 
-  const fetchBookings = useCallback(async () => {
-    try {
-      const response = await fetch(`/api/bookings?userId=${userId}`); //BOOKING DETAILS BASED ON USER
-      if (!response.ok) {
-        throw new Error("Failed to fetch bookings");
+  useEffect(() => {
+    const fetchBookings = async () => {
+      if (!userId) return;
+
+      try {
+        const response = await fetch(`/api/bookings?userId=${userId}`); //BOOKING DETAILS BASED ON USER
+        if (!response.ok) {
+          throw new Error("Failed to fetch bookings");
+        }
+        const data = await response.json();
+        console.log("Fetched bookings:", data); //CHECK ID
+        setBookings(data);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
       }
-      const data = await response.json();
-      console.log("Fetched bookings:", data); //CHECK ID
-      setBookings(data);
-    } catch (error) {
-      console.error("Error fetching bookings:", error);
-    }
+    };
+
+    fetchBookings();
   }, [userId]);
 
-  useEffect(() => {
-    if (userId) {
-      fetchBookings();
-    }
-  }, [userId, fetchBookings]);
-
-  //NEW BOOKING, BASED ON ID. LOOK INTO TAG USER TO SITTER AFTER SUBMIT
   const handleBookingSubmit = async (booking) => {
     const { title, startDate, endDate } = booking;
 
+    //NEW BOOKING, BASED ON ID. LOOK INTO TAG USER TO SITTER AFTER SUBMIT
     const newBooking = {
       title,
-      startDate,
-      endDate,
+      startDate: moment(startDate).toISOString(), //ensure dates are consistently formatted
+      endDate: moment(endDate).toISOString(),
       sitter: userId,
       user: userId,
     };
@@ -56,7 +56,7 @@ const MyCalendar = ({ userId }) => {
       }
 
       const data = await response.json();
-      setBookings([...bookings, data]);
+      setBookings((prevBookings) => [...prevBookings, data]);
     } catch (error) {
       console.error("Error creating booking:", error);
     }
