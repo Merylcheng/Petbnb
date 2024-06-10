@@ -35,7 +35,7 @@ const App = () => {
           <>
             <Route
               path="/sitters/:id"
-              element={<SitterDetails user={user} />}
+              element={<SitterDetails userId={user._id} />}
             />
             <Route
               path="/messages/:receiverId"
@@ -43,14 +43,14 @@ const App = () => {
             />
             <Route
               path="/calendar"
-              element={<MyCalendar userRole={user.role} userId={user._id} />}
+              element={<MyCalendar userId={user._id} />}
             />
           </>
         ) : user.role === "sitter" ? (
           <>
             <Route
               path="/sitters/:id"
-              element={<SitterDetails user={user} />}
+              element={<SitterDetails userId={user._id} />}
             />
             <Route
               path="/profile"
@@ -62,14 +62,15 @@ const App = () => {
             />
             <Route
               path="/calendar"
-              element={<MyCalendar userRole={user.role} userId={user._id} />}
+              element={<MyCalendar userId={user._id} />}
             />
           </>
         ) : null}
-        <Route path="*" element={<Navigate to="/auth" />} />
+
+        <Route path="*" element={<Navigate to={user ? "/" : "/auth"} />} />
       </Routes>
     </main>
-  );
+  ); //wildcard route (*) redirects to /auth. If user is logged in, redirects to home page
 };
 
 export default App;

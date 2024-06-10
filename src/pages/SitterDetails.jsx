@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
-const SitterDetails = () => {
+const SitterDetails = ({ userId }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [sitter, setSitter] = useState(null);
 
   useEffect(() => {
@@ -34,6 +35,10 @@ const SitterDetails = () => {
     return <div>No sitter found</div>;
   }
 
+  const handleBookServices = () => {
+    navigate(`/calendar?sitterId=${id}`);
+  };
+
   return (
     <div>
       <h1>{sitter.data.name}</h1>
@@ -60,11 +65,9 @@ const SitterDetails = () => {
         <strong>Pet Size:</strong> {sitter.data.petSize}
       </p>
       <br />
-      <Link to="/calendar">
-        <button>Book Services Here!</button>
-      </Link>
+      <button onClick={handleBookServices}>Book Services Here!</button>
       <br />
-      <Link to="/messages/:receiverId">
+      <Link to={`/messages/${id}`}>
         <button>Contact us here!</button>
       </Link>
     </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -9,18 +10,27 @@ const localizer = momentLocalizer(moment);
 
 const MyCalendar = ({ userId }) => {
   const [bookings, setBookings] = useState([]);
+  const location = useLocation();
+
+  // Extract sitterId from query parameters
+  const searchParams = new URLSearchParams(location.search);
+  const sitterId = searchParams.get("sitterId");
 
   useEffect(() => {
     const fetchBookings = async () => {
-      if (!userId) return;
-
       try {
-        const response = await fetch(`/api/bookings?userId=${userId}`); //BOOKING DETAILS BASED ON USER
+        // Construct the URL for the API request
+        let url = `/api/bookings?userId=${userId}`;
+        if (sitterId) {
+          url += `&sitterId=${sitterId}`;
+        }
+
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Failed to fetch bookings");
         }
         const data = await response.json();
-        console.log("Fetched bookings:", data); //CHECK ID
+        console.log("Fetched bookings:", data);
         setBookings(data);
       } catch (error) {
         console.error("Error fetching bookings:", error);
@@ -28,17 +38,16 @@ const MyCalendar = ({ userId }) => {
     };
 
     fetchBookings();
-  }, [userId]);
+  }, [userId, sitterId]);
 
   const handleBookingSubmit = async (booking) => {
     const { title, startDate, endDate } = booking;
 
-    //NEW BOOKING, BASED ON ID. LOOK INTO TAG USER TO SITTER AFTER SUBMIT
     const newBooking = {
       title,
-      startDate: moment(startDate).toISOString(), //ensure dates are consistently formatted
+      startDate: moment(startDate).toISOString(), // ensure dates are consistently formatted
       endDate: moment(endDate).toISOString(),
-      sitter: userId,
+      sitter: sitterId || userId,
       user: userId,
     };
 
