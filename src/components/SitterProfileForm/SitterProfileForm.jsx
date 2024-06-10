@@ -66,10 +66,13 @@ const SitterProfileForm = () => {
       className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md"
     >
       <div className="mb-4">
-        <label className="block text-gray-700 font-bold mb-2">Name:</label>
+        <label className="block text-gray-700 font-bold mb-2">
+          Your listing name:
+        </label>
         <input
           type="text"
           name="name"
+          placeholder="John's Pet Paradise"
           value={formData.name}
           onChange={handleChange}
           required
@@ -81,6 +84,7 @@ const SitterProfileForm = () => {
         <input
           type="text"
           name="location"
+          placeholder="Tampines"
           value={formData.location}
           onChange={handleChange}
           required
@@ -104,6 +108,7 @@ const SitterProfileForm = () => {
           name="bio"
           value={formData.bio}
           onChange={handleChange}
+          placeholder="Share more about yourself and services provided"
           required
           className="w-full p-2 border border-gray-300 rounded-md"
         ></textarea>
