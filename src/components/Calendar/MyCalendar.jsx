@@ -8,7 +8,7 @@ import BookingForm from "./BookingForm";
 // allow big cal to uds and format dates correctly
 const localizer = momentLocalizer(moment);
 
-const MyCalendar = ({ userId }) => {
+const MyCalendar = ({ userId, userName }) => {
   const [bookings, setBookings] = useState([]);
   const location = useLocation();
 
@@ -41,10 +41,10 @@ const MyCalendar = ({ userId }) => {
   }, [userId, sitterId]);
 
   const handleBookingSubmit = async (booking) => {
-    const { title, startDate, endDate } = booking;
+    const { startDate, endDate } = booking;
 
     const newBooking = {
-      title,
+      title: userName,
       startDate: moment(startDate).toISOString(), // ensure dates are consistently formatted
       endDate: moment(endDate).toISOString(),
       sitter: sitterId || userId,
@@ -74,7 +74,10 @@ const MyCalendar = ({ userId }) => {
   return (
     <div>
       <div style={{ marginBottom: "20px" }}>
-        <BookingForm onBookingSubmit={handleBookingSubmit} />
+        <BookingForm
+          onBookingSubmit={handleBookingSubmit}
+          userName={userName}
+        />
       </div>
       <Calendar
         localizer={localizer}

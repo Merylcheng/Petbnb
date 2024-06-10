@@ -43,7 +43,7 @@ const App = () => {
             />
             <Route
               path="/calendar"
-              element={<MyCalendar userId={user._id} />}
+              element={<MyCalendar userId={user._id} userName={user.name} />}
             />
           </>
         ) : user.role === "sitter" ? (
@@ -62,7 +62,7 @@ const App = () => {
             />
             <Route
               path="/calendar"
-              element={<MyCalendar userId={user._id} />}
+              element={<MyCalendar userId={user._id} userName={user.name} />}
             />
           </>
         ) : null}
