@@ -12,6 +12,7 @@ import BeASitter from "../BeASitter";
 import Messages from "../Messages";
 import AuthPage from "../AuthPage/AuthPage";
 import MyCalendar from "../../components/Calendar/MyCalendar";
+import BookingPage from "../BookingPage";
 
 const log = debug("mern:pages:App:App");
 
@@ -45,6 +46,10 @@ const App = () => {
               path="/calendar"
               element={<MyCalendar userId={user._id} userName={user.name} />}
             />
+            <Route
+              path="/bookingPage"
+              element={<BookingPage userId={user._id} userName={user.name} />}
+            />
           </>
         ) : user.role === "sitter" ? (
           <>
@@ -63,6 +68,10 @@ const App = () => {
             <Route
               path="/calendar"
               element={<MyCalendar userId={user._id} userName={user.name} />}
+            />
+            <Route
+              path="/bookingPage"
+              element={<BookingPage userId={user._id} />}
             />
           </>
         ) : null}

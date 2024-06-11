@@ -1,13 +1,27 @@
 const Booking = require("../../models/Booking");
-// const User = require("../../models/user");
 
-// GET ALL BOOKINGS FOR A SPECIFIC USER
+// // GET ALL BOOKINGS FOR A SPECIFIC USER
+// const getAllBookings = async (req, res) => {
+//   const { userId } = req.query;
+//   try {
+//     const bookings = await Booking.find({ user: userId }).populate(
+//       "sitter user"
+//     );
+//     res.json(bookings);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
+// GET ALL BOOKINGS FOR A SPECIFIC USER OR SITTER
 const getAllBookings = async (req, res) => {
   const { userId } = req.query;
   try {
-    const bookings = await Booking.find({ user: userId }).populate(
-      "sitter user"
-    );
+    // Find bookings where either user or sitter matches the userId
+    const bookings = await Booking.find({
+      $or: [{ user: userId }, { sitter: userId }],
+    }).populate("sitter user");
+
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ error: error.message });
