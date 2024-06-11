@@ -66,7 +66,7 @@ const userSchema = new Schema(
       required: true,
     },
     role: { type: String, enum: ["user", "sitter"], required: true },
-    // sitterProfile: { type: Schema.Types.ObjectId, ref: "Sitter" },
+    sitterProfile: { type: Schema.Types.ObjectId, ref: "Sitter" },
   },
   {
     timestamps: true,

@@ -10,12 +10,13 @@ export default class SignUpForm extends Component {
     email: "",
     password: "",
     confirm: "",
-    role: "petowner",
+    role: "user",
     error: "",
   };
 
   handleChange = (event) => {
     const { name, value } = event.target;
+    console.log(name, value);
 
     this.setState({ ...this.state, [name]: value });
   };
