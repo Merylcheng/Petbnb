@@ -43,6 +43,21 @@ const MyCalendar = ({ userId, userName }) => {
   const handleBookingSubmit = async (booking) => {
     const { startDate, endDate } = booking;
 
+    // Check if got 2 bookings overlapping with the new booking
+    const overlappingBookings = bookings.filter(
+      (b) =>
+        new Date(b.startDate) < new Date(endDate) &&
+        new Date(b.endDate) > new Date(startDate)
+    );
+
+    if (overlappingBookings.length >= 2) {
+      alert(
+        "EXCUSE ME I KNOW MY SITTER PROVIDES VERY GOOD SERVICE BUT YOU CANNOT BOOK ANYMORE! MY SITTER HAS A MAX OCCUPANCY RATE OF 2 PETS!!"
+      );
+
+      return;
+    }
+
     const newBooking = {
       title: userName,
       startDate: moment(startDate).toISOString(), // ensure dates are consistently formatted

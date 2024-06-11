@@ -14,9 +14,26 @@ const getAllBookings = async (req, res) => {
   }
 };
 
-// CREATE A BOOKING
 const createBooking = async (req, res) => {
   try {
+    const { startDate, endDate, sitter: sitterId, user: userId } = req.body;
+
+    // Check if got 2 bookings overlapping with the new booking
+    const overlappingBookingsCount = await Booking.countDocuments({
+      sitter: sitterId || userId,
+      $or: [
+        { startDate: { $lt: endDate }, endDate: { $gt: startDate } },
+        { startDate: { $gte: startDate, $lt: endDate } },
+        { endDate: { $gt: startDate, $lte: endDate } },
+      ],
+    });
+
+    if (overlappingBookingsCount >= 2) {
+      return res
+        .status(400)
+        .json({ error: "Cannot create more than 2 overlapping bookings." });
+    }
+
     const newBooking = new Booking(req.body);
     await newBooking.save();
     res.json(newBooking);

@@ -20,7 +20,7 @@ const Slider = () => {
           }}
         >
           <img
-            src="/images/pet1.jpg"
+            src="/images/pet4.jpg"
             alt="pet1"
             className="h-20vh w-full max-w-full"
           />
