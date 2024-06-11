@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
-const SitterDetails = ({ userId }) => {
+const SitterDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [sitter, setSitter] = useState(null);

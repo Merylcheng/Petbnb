@@ -59,5 +59,3 @@ const sitterSchema = new Schema(
 );
 
 module.exports = mongoose.model("Sitter", sitterSchema);
-
-
