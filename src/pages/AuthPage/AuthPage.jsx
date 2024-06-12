@@ -5,6 +5,7 @@ export default function AuthPage({ setUser }) {
   return (
     <>
       <LoginForm setUser={setUser} />
+      <br />
       <SignUpForm setUser={setUser} />
     </>
   );

@@ -5,7 +5,7 @@ const Slider = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % 3); // Assuming 3 slides
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % 3);
     }, 3000);
     return () => clearInterval(interval);
   }, []);

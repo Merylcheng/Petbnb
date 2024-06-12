@@ -23,7 +23,7 @@ export default function LoginForm({ setUser }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-md mx-auto mt-10 p-6 bg-white rounded-md shadow-md"
+      className="max-w-md mx-auto bg-white p-8 border border-gray-300 rounded-lg shadow-md"
     >
       <fieldset className="space-y-4">
         <legend className="text-2xl font-bold mb-4">Login</legend>
