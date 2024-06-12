@@ -1,194 +1,164 @@
-# MERN
+# Petbnb
 
-## Setup
+Petbnb is a digital platform designed to connect pet owners with reliable and trustworthy pet sitters.
 
-1. Create `vite` project -> `npm create vite`
-   1. Answer the questions -> `mern` folder
-2. `cd mern` && `npm install`
+## Description / User Story
 
-## Git setup
+As a dog owner, it is important to find a reliable pet sitter to ensure that I can leave my pet in capable hands when I'm away. There are various criteria that I consider when searching for a sitter, including the sitter's experience with dogs, their knowledge of pet care, and their availability to meet my specific scheduling needs. Hence, an app that can showcase detailed information about the sitter is important to facilitate an informed decision.
 
-1. `git init`
-2. Add on the `.gitignore` from <https://www.toptal.com/developers/gitignore/api/windows,osx,node,visualstudiocode>
-3. `git add .` && `git commit -m ...`
+As a pet sitter, it is essential to manage my services efficiently. Based on personal experience, one of the top pet sitting providers I currently use does not offer the most seamless method. An ideal application should facilitate the process of finding, booking, and managing pet sitting services, allowing pet sitters to dedicate more time to caring for the pets rather than managing bookings.
 
-Goto `github.com` and create a new EMPTY repo
+### Sample of current app i'm using:
 
-```bash
- git remote add origin git@git.generalassemb.ly:simonlau/mern-50.git
-  git branch -M main
-  git push -u origin main
-```
+<img src="public/images/IMG_7585.png">
+<img src="public/images/IMG_7586.png">
 
-## Optional lint-staged + git-hooks + prettier
+## Getting Started - Planning
 
-`npm install -D prettier`
-`npx mrm@2 lint-staged`
+#### Project Time Frame
 
-`husky` -> git hook manager
-`lint-staged`
+2 weeks
 
-install into `package.json` in devDepencies
+### WireFrame in [Figma](https://www.figma.com/board/JIRoTkITPhgx8Zyveg98G1/Project-3?node-id=0-1&t=hBoZp2vjF42wfAoh-1)
 
-new `lint-staged` in `package.json`
-new `.husky`
+<img src="public/images/wireframepetbnb.png">
 
-- `pre-commit` -> `npx lint-staged`
+### Example Schema in [Google Sheets](https://docs.google.com/spreadsheets/d/1wz7Gcyl5nVbwnUO6_fICRzO2d5oNztfd3A_VLjPeUFU/edit?usp=sharing)
 
-## Edit for CommonJS
+<img src="public/images/petbnbschema.png">
 
-Inside `.eslintrc.cjs` change to
+### Deployed on Render
 
-`env: { browser: true, es2020: true, node: true },`
+Try it here: (https://petbnb-g8ax.onrender.com)
 
-Inside `package.json`
+---
 
-Remove `type: "module"`
+### Landing Page
 
-## Adaptation for vite dist instead of CRA build
+<img src="public/images/landing.png">
+<img src="public/images/featured.png">
 
-Inside `server.js`
+### Be A Sitter
 
-```js
-app.use(favicon(path.join(__dirname, "dist", "vite.svg")));
-app.use(express.static(path.join(__dirname, "dist")));
-```
+<img src="public/images/be.png">
 
-## Setup nodemon
+### Sitter Details
 
-`npm install -D nodemon`
+<img src="public/images/3.png">
 
-in `package.json` add to "scripts":
+### My Calendar
 
-```js
-    "dev:react": "vite",
-    "dev:express": "node --watch server.js",
-    "dev:express-win": "nodemon server.js",
-```
+<img src="public/images/2.png">
 
-## Clean up
+### Booking Page
 
-`main.js` -> remove CSS
+<img src="public/images/1.png">
 
-Unused files
+### Sitter Profile
 
-```bash
-rm src/*.css
-rm -r src/assets
-```
+<img src="public/images/profile.png">
 
-## React convention
+### Inbox
 
-Folder -> name is same as the actual Component
+## <img src="public/images/chatbox.png">
 
-split into `pages` and stand-alone `components` folders
+### Favourite
 
-## dotenv pitfall
+Backend: Set up Multer(store temporily) and Cloudinary(after receiving upload to cloud) for handling image uploads. Adjust the controller to handle the uploaded file and save its URL in the database(MongoDb).
+Frontend: Update the form to handle file input and send the form data as multipart/form-data.
 
-dotenv-safe -> `.env.example`
+This setup ensures that the server handles the file upload process, which can be beneficial for validation, security, and further processing.
 
-changing `.env` -> does not restart express
+<img src="public/images/img1.png">
+<img src="public/images/img2.png">
+<img src="public/images/img3.png">
+<img src="public/images/img4.png">
+<img src="public/images/img6.png">
+<img src="public/images/img5.png">
 
-## debug in express
+### Least Favourite
 
-In server.js -> `const debug = require("debug")("mern:server");`
-In `config/database.js` -> `const debug = require("debug")("mern:config:database");`
+Uncaught DOMException: Failed to execute 'atob' on 'Window': The string to be decoded is not correctly encoded., suggests that the string you're trying to decode using atob() is not properly encoded.
 
-In package.json change to
+atob is a JavaScript function that decodes a string of data that has been encoded using Base64 encoding(for images or files).
 
-`"dev:express": "DEBUG=mern:* node --watch server.js",`
+How did i solve:
+clear local storage cache in application.
 
-## debug in react
+## CRUD
 
-in `App.js` as well as every other file you want to log
+### Update:
 
-```js
-import debug from "debug";
+<img src="public/images/5.png">
 
-const log = debug("mern-50:pages:App:App");
-```
+### Delete:
 
-in `main.jsx` -> write once -> `localStorage.debug = "mern-50:*";`
+<img src="public/images/4.png">
 
-## Structure
+### Overlap + Max Capacity of 2 pets
 
-React -> src -> pages / components etc
-Express -> server.js, models, controllers etc
+<img src="public/images/overlap.png">
 
-Project
---> React
---> Express
+### Navigate the user ans sitter on App Page
 
-## Proxy setup
+<img src="public/images/6.png">
 
-In `vite.config.js`, change to
+### Key Takeaways
 
-```js
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    proxy: {
-      "/api": "http://localhost:3000",
-    },
-  },
-});
-```
+- The planning phase at the start is important because I realize that as I code more, it becomes hard to change once everything is established.
+- Knowing that my code is not perfect and that making mistakes is part of the journey, I should take it easy because I will have to make mistakes to learn my lessons.
 
-## Deploy -> Vercel
+### Icebox
 
-## Routing
+- Include **map** to direct to nearby location.
 
-- React -> React Router -> /movies
-- Express -> ALL start with `/api` like /api/movies
+- Include other **services** such as daycare, pet transportation.
 
-## Why Class Components
+- Loyalty program, perks and points system.
 
-Last time -> functional components have NO hooks
+- Include a **third** user: admin.
 
-## Sign UP -> REST -> Create User
+- Add sign up **verification** that only allows all users to sign up if conditions are fufilled and approved by admin.
 
-### React
+### Tech Stack
 
-- `/` -> AuthPage -> SignUpForm
-- User fill in the SignUpForm -> onSubmit
-- preventDefault() -> users-service -> users-api -> FETCH
+##### Programming Language
 
-Fetch (Network) -> `/api/users`, POST + JSON Body (Bruno also)
+- **Javascript** - For both frontend and backend
 
-### Express
+##### Frontend
 
-`server.js` -> `/api/users` -> usersRouter
-usersRouter -> `/` (`/api/users`) + POST -> usersController.create
-create -> req.body
-create user -> const user = await User.create()
-user -> makeJWT -> JWT
--> res.json(jwt)
+- **Vite** - Fast development build tool
+- **React** - JavaScript library for building user interfaces
+- **Tailwind CSS** - Utility-first CSS framework for styling
+- **React Hot Toast** - Notification library for React
 
-### Back to React
+##### Backend
 
-users-api -> JSON -> users-service
-users-service -> SignUpForm (onSubmit) -> console.log -> Not right
+- **Node.js** - JavaScript runtime environment
+- **Express** - Web application framework for Node.js
 
-## JWT
+##### Database
 
-### Security Terms
+- **MongoDB** - NoSQL database
+- **Mongoose** - MongoDB object modeling tool
 
-encrypt <-> decrypt : Casear Cypher
-plain text + key -> algo -> encrypted text
+##### Authentication & Security
 
-encode -> change format (no key) -> decode
-<https://www.google.com.sg/search?q=singapore's+best+boot+camp>
+- **JSON Web Token (JWT)** - For creating and verifying tokens
+- **jwt-decode** - Library to decode JWT tokens
+- **bcrypt** - Password hashing library
 
-hashing -> algo(text) -> hash
+##### Deployment
 
-- one-way
-- fast -> compared to encryption
-- hash("abcdefg") -> "1234567"
-- hash("abcdefgh") -> "52632877"
+- **Render** - Cloud platform for deploying web applications
 
-Authentication -> check if the person is who he says he is
-Authorization -> check if the person can do he wants
+##### Development & Testing Tools
+
+- **MongoDB Compass** - GUI tool for MongoDB
+- **Bruno** - API testing tool (for backend validation)
+- **VS Code** - Code editor
+- **Figma** - Wireframe tool (for UI/UX design)
 
 ## Reference
 

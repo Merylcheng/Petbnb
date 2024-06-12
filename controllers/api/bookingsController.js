@@ -14,7 +14,7 @@ const getAllBookings = async (req, res) => {
   }
 };
 
-//create booking + max cap at 2
+//Create booking + max cap at 2
 const createBooking = async (req, res) => {
   try {
     const { startDate, endDate, sitter: sitterId, user: userId } = req.body;
@@ -23,6 +23,7 @@ const createBooking = async (req, res) => {
     const overlappingBookingsCount = await Booking.countDocuments({
       sitter: sitterId || userId,
       $or: [
+        //condition checks for bookings that start b4 new booking’s end date and & after new booking’s start date.
         { startDate: { $lt: endDate }, endDate: { $gt: startDate } },
         { startDate: { $gte: startDate, $lt: endDate } },
         { endDate: { $gt: startDate, $lte: endDate } },

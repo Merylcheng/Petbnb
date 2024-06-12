@@ -19,7 +19,8 @@ const getAll = async (req, res) => {
   try {
     const { location } = req.query;
     const filter = location
-      ? { location: { $regex: location, $options: "i" } }
+      ? //operator used in MongoDB to perform pattern matching using regular expressions
+        { location: { $regex: location, $options: "i" } }
       : {};
     const sitters = await Sitter.find(filter);
     res.json(sitters);
