@@ -52,7 +52,7 @@ const updateBooking = async (req, res) => {
       bookingId,
       updatedData,
       { new: true }
-    );
+    ).populate("sitter user");
 
     if (!updatedBooking) {
       return res.status(404).json({ error: "Booking not found." });

@@ -10,6 +10,11 @@ const BookingPage = ({ userId }) => {
     user: "",
     sitter: "",
   });
+  const [formDisplayData, setFormDisplayData] = useState({
+    //display name of user and sitter instead of id no
+    userName: "",
+    sitterName: "",
+  });
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -54,8 +59,12 @@ const BookingPage = ({ userId }) => {
       id: booking._id,
       startDate: formatDate(booking.startDate),
       endDate: formatDate(booking.endDate),
-      user: booking.user.name,
-      sitter: booking.sitter.name,
+      user: booking.user._id,
+      sitter: booking.sitter._id,
+    });
+    setFormDisplayData({
+      userName: booking.user.name,
+      sitterName: booking.sitter.name,
     });
     setShowUpdateForm(true);
   };
@@ -86,7 +95,7 @@ const BookingPage = ({ userId }) => {
           booking._id === id ? updatedBooking : booking
         )
       );
-      setShowUpdateForm(false); //hide upd form after success upd
+      setShowUpdateForm(false); //hide udp form
     } catch (error) {
       console.error("Error updating booking:", error);
     }
@@ -163,8 +172,8 @@ const BookingPage = ({ userId }) => {
               <input
                 type="text"
                 name="user"
-                value={formData.user}
-                onChange={handleChange}
+                value={formDisplayData.userName}
+                disabled
               />
             </label>
             <br />
@@ -173,8 +182,8 @@ const BookingPage = ({ userId }) => {
               <input
                 type="text"
                 name="sitter"
-                value={formData.sitter}
-                onChange={handleChange}
+                value={formDisplayData.sitterName}
+                disabled
               />
             </label>
             <br />

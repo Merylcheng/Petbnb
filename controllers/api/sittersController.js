@@ -14,10 +14,18 @@ const create = async (req, res) => {
   }
 };
 
-//SEE ALL SITTERS (FEATURED LISTING)
+// SEE ALL SITTERS (FEATURED LISTING) OR SEARCH BY LOCATION
 const getAll = async (req, res) => {
-  const sitters = await Sitter.find({});
-  res.json(sitters);
+  try {
+    const { location } = req.query;
+    const filter = location
+      ? { location: { $regex: location, $options: "i" } }
+      : {};
+    const sitters = await Sitter.find(filter);
+    res.json(sitters);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 //FIND SITTER BY ID
@@ -33,37 +41,8 @@ const getSitterById = async (req, res) => {
   }
 };
 
-//
-
 module.exports = {
   create,
   getAll,
   getSitterById,
 };
-
-// const search = async (req, res) => {
-//   try {
-//     let query = {};
-//     if (req.query.location) {
-//       query.location = req.query.location.trim();
-//       console.log(`Search location: ${query.location}`);
-//     }
-//     const sitters = await Sitter.find(query);
-//     res.json(sitters);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-// deleteById,
-// DELETE SITTER BY ID
-// const deleteById = async (req, res) => {
-//   try {
-//     const sitter = await Sitter.findByIdAndDelete(req.params.id);
-//     if (!sitter) {
-//       return res.status(404).json({ message: "Sitter not found" });
-//     }
-//     res.status(200).json({ message: "Sitter deleted successfully" });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };

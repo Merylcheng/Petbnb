@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SearchBar = () => {
   const [location, setLocation] = useState("");
@@ -43,6 +44,12 @@ const SearchBar = () => {
                 {sitter.name}
               </div>
               <div className="text-gray-600">{sitter.location}</div>
+              <Link
+                to={`/sitters/${sitter._id}`}
+                className="text-indigo-500 hover:text-blue-600"
+              >
+                View Details
+              </Link>
             </li>
           ))}
         </ul>
