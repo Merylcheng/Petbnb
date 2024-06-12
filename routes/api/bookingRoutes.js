@@ -4,7 +4,7 @@ const bookingsCtrl = require("../../controllers/api/bookingsController");
 
 router.get("/", bookingsCtrl.getAllBookings);
 router.post("/", bookingsCtrl.createBooking);
-// router.put("/:bookingId", bookingsCtrl.updateBooking);
+router.put("/:bookingId", bookingsCtrl.updateBooking);
 router.delete("/:bookingId", bookingsCtrl.deleteBooking);
 
 module.exports = router;

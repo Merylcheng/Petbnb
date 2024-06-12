@@ -2,6 +2,14 @@ import { useState, useEffect } from "react";
 
 const BookingPage = ({ userId }) => {
   const [bookings, setBookings] = useState([]);
+  const [showUpdateForm, setShowUpdateForm] = useState(false); //hide or display upd form
+  const [formData, setFormData] = useState({
+    id: "",
+    startDate: "",
+    endDate: "",
+    sitter: "",
+    user: "",
+  });
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -20,13 +28,11 @@ const BookingPage = ({ userId }) => {
     fetchBookings();
   }, [userId]);
 
-  // Function to format date as YYYY-MM-DD
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toISOString().split("T")[0]; // Get YYYY-MM-DD from ISO string
   };
 
-  // Function to handle deletion of a booking
   const handleDeleteBooking = async (bookingId) => {
     try {
       const response = await fetch(`/api/bookings/${bookingId}`, {
@@ -35,7 +41,6 @@ const BookingPage = ({ userId }) => {
       if (!response.ok) {
         throw new Error("Failed to delete booking");
       }
-      // Remove the deleted booking from the state
       setBookings((prevBookings) =>
         prevBookings.filter((booking) => booking._id !== bookingId)
       );
@@ -44,28 +49,140 @@ const BookingPage = ({ userId }) => {
     }
   };
 
+  const handleShowUpdateForm = (booking) => {
+    setFormData({
+      id: booking._id,
+      startDate: formatDate(booking.startDate),
+      endDate: formatDate(booking.endDate),
+      sitter: booking.sitter._id,
+      user: booking.user._id,
+    });
+    setShowUpdateForm(true);
+  };
+
+  const handleUpdateBooking = async () => {
+    const { id, startDate, endDate, sitter, user } = formData;
+    const updatedData = {
+      startDate,
+      endDate,
+      sitter,
+      user,
+    };
+
+    try {
+      const response = await fetch(`/api/bookings/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update booking");
+      }
+      const updatedBooking = await response.json();
+      setBookings((prevBookings) =>
+        prevBookings.map((booking) =>
+          booking._id === id ? updatedBooking : booking
+        )
+      );
+      setShowUpdateForm(false); //hide upd form after success upd
+    } catch (error) {
+      console.error("Error updating booking:", error);
+    }
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <div>
       <h1>Bookings</h1>
-      <ul>
-        {bookings.map((booking) => (
-          <li key={booking._id}>
-            <strong>Start Date:</strong> {formatDate(booking.startDate)}
+      {bookings.length === 0 ? (
+        <p>No bookings found.</p>
+      ) : (
+        <ul>
+          {bookings.map((booking) => (
+            <li key={booking._id}>
+              <strong>Start Date:</strong> {formatDate(booking.startDate)}
+              <br />
+              <strong>End Date:</strong> {formatDate(booking.endDate)}
+              <br />
+              <strong>User:</strong> {booking.user?.name}
+              <br />
+              <strong>Sitter:</strong> {booking.sitter?.name}
+              <br />
+              <button onClick={() => handleDeleteBooking(booking._id)}>
+                Delete Booking
+              </button>
+              <button onClick={() => handleShowUpdateForm(booking)}>
+                Update Booking
+              </button>
+              <br />
+              <hr />
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {showUpdateForm && (
+        <div>
+          <h2>Update Booking</h2>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleUpdateBooking();
+            }}
+          >
+            <label>
+              Start Date:
+              <input
+                type="date"
+                name="startDate"
+                value={formData.startDate}
+                onChange={handleChange}
+              />
+            </label>
             <br />
-            <strong>End Date:</strong> {formatDate(booking.endDate)}
+            <label>
+              End Date:
+              <input
+                type="date"
+                name="endDate"
+                value={formData.endDate}
+                onChange={handleChange}
+              />
+            </label>
             <br />
-            <strong>User:</strong> {booking.user?.name}
+            <label>
+              Sitter:
+              <input
+                type="text"
+                name="sitter"
+                value={formData.sitter}
+                onChange={handleChange}
+              />
+            </label>
             <br />
-            <strong>Sitter:</strong> {booking.sitter?.name}
+            <label>
+              User:
+              <input
+                type="text"
+                name="user"
+                value={formData.user}
+                onChange={handleChange}
+              />
+            </label>
             <br />
-            <button onClick={() => handleDeleteBooking(booking._id)}>
-              Delete Booking
-            </button>
-            <br />
-            <hr />
-          </li>
-        ))}
-      </ul>
+            <button type="submit">Update</button>
+            <button onClick={() => setShowUpdateForm(false)}>Cancel</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

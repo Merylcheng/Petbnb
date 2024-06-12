@@ -14,6 +14,7 @@ const getAllBookings = async (req, res) => {
   }
 };
 
+//create booking + max cap at 2
 const createBooking = async (req, res) => {
   try {
     const { startDate, endDate, sitter: sitterId, user: userId } = req.body;
@@ -42,26 +43,26 @@ const createBooking = async (req, res) => {
   }
 };
 
-// const updateBooking = async (req, res) => {
-//   const { bookingId } = req.params;
-//   const updatedData = req.body;
+const updateBooking = async (req, res) => {
+  const { bookingId } = req.params;
+  const updatedData = req.body;
 
-//   try {
-//     const updatedBooking = await Booking.findByIdAndUpdate(
-//       bookingId,
-//       updatedData,
-//       { new: true }
-//     );
+  try {
+    const updatedBooking = await Booking.findByIdAndUpdate(
+      bookingId,
+      updatedData,
+      { new: true }
+    );
 
-//     if (!updatedBooking) {
-//       return res.status(404).json({ error: "Booking not found." });
-//     }
+    if (!updatedBooking) {
+      return res.status(404).json({ error: "Booking not found." });
+    }
 
-//     res.json(updatedBooking);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
+    res.json(updatedBooking);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 const deleteBooking = async (req, res) => {
   const { bookingId } = req.params;
@@ -81,20 +82,6 @@ const deleteBooking = async (req, res) => {
 module.exports = {
   createBooking,
   getAllBookings,
-  // updateBooking,
+  updateBooking,
   deleteBooking,
 };
-
-// // UPDATE BOOKING
-// const updateBooking = async (req, res) => {
-//   try {
-//     const updatedBooking = await Booking.findByIdAndUpdate(
-//       req.params.id,
-//       req.body,
-//       { new: true }
-//     );
-//     res.json(updatedBooking);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
