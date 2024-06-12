@@ -87,25 +87,35 @@ const MyCalendar = ({ userId, userName }) => {
   };
 
   return (
-    <div>
-      <div style={{ marginBottom: "20px" }}>
-        <BookingForm
-          onBookingSubmit={handleBookingSubmit}
-          userName={userName}
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{ backgroundImage: `url('/images/pet4.jpg')` }}
+    >
+      <div
+        className="w-full max-w-screen-lg p-8 bg-opacity-0 rounded-lg "
+        style={{ marginLeft: "-700px" }}
+      >
+        <div className="mb-8">
+          <BookingForm
+            onBookingSubmit={handleBookingSubmit}
+            userName={userName}
+          />
+        </div>
+        <Calendar
+          localizer={localizer}
+          events={bookings.map((booking) => ({
+            id: booking._id,
+            title: booking.title,
+            start: new Date(booking.startDate),
+            end: new Date(booking.endDate),
+          }))}
+          startAccessor="start"
+          endAccessor="end"
+          style={{
+            height: 500,
+          }}
         />
       </div>
-      <Calendar
-        localizer={localizer}
-        events={bookings.map((booking) => ({
-          id: booking._id,
-          title: booking.title,
-          start: new Date(booking.startDate),
-          end: new Date(booking.endDate),
-        }))}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
-      />
     </div>
   );
 };

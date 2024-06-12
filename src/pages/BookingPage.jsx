@@ -109,89 +109,125 @@ const BookingPage = ({ userId }) => {
   };
 
   return (
-    <div>
-      <h1>Bookings</h1>
-      {bookings.length === 0 ? (
-        <p>No bookings found.</p>
-      ) : (
-        <ul>
-          {bookings.map((booking) => (
-            <li key={booking._id}>
-              <strong>Start Date:</strong> {formatDate(booking.startDate)}
-              <br />
-              <strong>End Date:</strong> {formatDate(booking.endDate)}
-              <br />
-              <strong>User:</strong> {booking.user?.name}
-              <br />
-              <strong>Sitter:</strong> {booking.sitter?.name}
-              <br />
-              <button onClick={() => handleDeleteBooking(booking._id)}>
-                Delete Booking
-              </button>
-              <button onClick={() => handleShowUpdateForm(booking)}>
-                Update Booking
-              </button>
-              <br />
-              <hr />
-            </li>
-          ))}
-        </ul>
-      )}
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{ backgroundImage: `url('/images/pet4.jpg')` }}
+    >
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold text-indigo-600 mb-8">Bookings</h1>
+        {bookings.length === 0 ? (
+          <p className="text-black text-lg">No bookings found.</p>
+        ) : (
+          <ul className="divide-y divide-gray-400 divide-solid divide-y-2">
+            {bookings.map((booking, index) => (
+              <li
+                key={booking._id}
+                className={`py-4 ${index !== 0 ? "border-t border-gray-300" : ""}`}
+              >
+                <div className="text-black">
+                  <strong className="font-semibold">Start Date:</strong>{" "}
+                  {formatDate(booking.startDate)}
+                </div>
+                <div className="text-black">
+                  <strong className="font-semibold">End Date:</strong>{" "}
+                  {formatDate(booking.endDate)}
+                </div>
+                <div className="text-black">
+                  <strong className="font-semibold">User:</strong>{" "}
+                  {booking.user?.name}
+                </div>
+                <div className="text-black">
+                  <strong className="font-semibold">Sitter:</strong>{" "}
+                  {booking.sitter?.name}
+                </div>
+                <div className="mt-4">
+                  <button
+                    className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded mr-2"
+                    onClick={() => handleDeleteBooking(booking._id)}
+                  >
+                    Delete Booking
+                  </button>
+                  <button
+                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+                    onClick={() => handleShowUpdateForm(booking)}
+                  >
+                    Update Booking
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
 
-      {showUpdateForm && (
-        <div>
-          <h2>Update Booking</h2>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleUpdateBooking();
-            }}
-          >
-            <label>
-              Start Date:
-              <input
-                type="date"
-                name="startDate"
-                value={formData.startDate}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              End Date:
-              <input
-                type="date"
-                name="endDate"
-                value={formData.endDate}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
-              User:
-              <input
-                type="text"
-                name="user"
-                value={formDisplayData.userName}
-                disabled
-              />
-            </label>
-            <br />
-            <label>
-              Sitter:
-              <input
-                type="text"
-                name="sitter"
-                value={formDisplayData.sitterName}
-                disabled
-              />
-            </label>
-            <br />
-            <button type="submit">Update</button>
-            <button onClick={() => setShowUpdateForm(false)}>Cancel</button>
-          </form>
-        </div>
-      )}
+        {showUpdateForm && (
+          <div className="mt-8 text-black">
+            <h2 className="text-xl font-bold mb-4">Update Booking</h2>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleUpdateBooking();
+              }}
+            >
+              <div className="mb-4">
+                <label className="block text-sm font-semibold">
+                  Start Date:
+                </label>
+                <input
+                  type="date"
+                  name="startDate"
+                  value={formData.startDate}
+                  onChange={handleChange}
+                  className="border border-gray-300 rounded px-3 py-2 w-full bg-white"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-semibold">End Date:</label>
+                <input
+                  type="date"
+                  name="endDate"
+                  value={formData.endDate}
+                  onChange={handleChange}
+                  className="border border-gray-300 rounded px-3 py-2 w-full bg-white"
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-sm font-semibold">User:</label>
+                <input
+                  type="text"
+                  name="user"
+                  value={formDisplayData.userName}
+                  disabled
+                  className="border border-gray-300 rounded px-3 py-2 w-full bg-gray-200"
+                />
+              </div>
+              <div className="mb-6">
+                <label className="block text-sm font-semibold">Sitter:</label>
+                <input
+                  type="text"
+                  name="sitter"
+                  value={formDisplayData.sitterName}
+                  disabled
+                  className="border border-gray-300 rounded px-3 py-2 w-full bg-gray-200"
+                />
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded mr-2"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={() => setShowUpdateForm(false)}
+                  className="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
