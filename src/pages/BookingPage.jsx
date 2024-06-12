@@ -26,6 +26,24 @@ const BookingPage = ({ userId }) => {
     return date.toISOString().split("T")[0]; // Get YYYY-MM-DD from ISO string
   };
 
+  // Function to handle deletion of a booking
+  const handleDeleteBooking = async (bookingId) => {
+    try {
+      const response = await fetch(`/api/bookings/${bookingId}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error("Failed to delete booking");
+      }
+      // Remove the deleted booking from the state
+      setBookings((prevBookings) =>
+        prevBookings.filter((booking) => booking._id !== bookingId)
+      );
+    } catch (error) {
+      console.error("Error deleting booking:", error);
+    }
+  };
+
   return (
     <div>
       <h1>Bookings</h1>
@@ -39,6 +57,10 @@ const BookingPage = ({ userId }) => {
             <strong>User:</strong> {booking.user?.name}
             <br />
             <strong>Sitter:</strong> {booking.sitter?.name}
+            <br />
+            <button onClick={() => handleDeleteBooking(booking._id)}>
+              Delete Booking
+            </button>
             <br />
             <hr />
           </li>

@@ -59,3 +59,8 @@ const sitterSchema = new Schema(
 );
 
 module.exports = mongoose.model("Sitter", sitterSchema);
+
+// userId: {
+//   type: Schema.Types.ObjectId,
+//   ref: "User",
+// },

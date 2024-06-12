@@ -1,19 +1,5 @@
 const Booking = require("../../models/Booking");
 
-// // GET ALL BOOKINGS FOR A SPECIFIC USER
-// const getAllBookings = async (req, res) => {
-//   const { userId } = req.query;
-//   try {
-//     const bookings = await Booking.find({ user: userId }).populate(
-//       "sitter user"
-//     );
-//     res.json(bookings);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
-// GET ALL BOOKINGS FOR A SPECIFIC USER OR SITTER
 const getAllBookings = async (req, res) => {
   const { userId } = req.query;
   try {
@@ -56,9 +42,47 @@ const createBooking = async (req, res) => {
   }
 };
 
+// const updateBooking = async (req, res) => {
+//   const { bookingId } = req.params;
+//   const updatedData = req.body;
+
+//   try {
+//     const updatedBooking = await Booking.findByIdAndUpdate(
+//       bookingId,
+//       updatedData,
+//       { new: true }
+//     );
+
+//     if (!updatedBooking) {
+//       return res.status(404).json({ error: "Booking not found." });
+//     }
+
+//     res.json(updatedBooking);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
+const deleteBooking = async (req, res) => {
+  const { bookingId } = req.params;
+  try {
+    const deletedBooking = await Booking.findByIdAndDelete(bookingId);
+
+    if (!deletedBooking) {
+      return res.status(404).json({ error: "Booking not found." });
+    }
+
+    res.json({ message: "Booking deleted successfully.", deletedBooking });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   createBooking,
   getAllBookings,
+  // updateBooking,
+  deleteBooking,
 };
 
 // // UPDATE BOOKING
@@ -70,26 +94,6 @@ module.exports = {
 //       { new: true }
 //     );
 //     res.json(updatedBooking);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
-// // DELETE
-// const deleteBooking = async (req, res) => {
-//   try {
-//     await Booking.findByIdAndDelete(req.params.id);
-//     res.json({ message: "Booking deleted" });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
-
-// // GET ALL
-// const getAllBookings = async (req, res) => {
-//   try {
-//     const bookings = await Booking.find().populate("sitter user");
-//     res.json(bookings);
 //   } catch (error) {
 //     res.status(500).json({ error: error.message });
 //   }
