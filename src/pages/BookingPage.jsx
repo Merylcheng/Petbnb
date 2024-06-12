@@ -7,8 +7,8 @@ const BookingPage = ({ userId }) => {
     id: "",
     startDate: "",
     endDate: "",
-    sitter: "",
     user: "",
+    sitter: "",
   });
 
   useEffect(() => {
@@ -54,19 +54,19 @@ const BookingPage = ({ userId }) => {
       id: booking._id,
       startDate: formatDate(booking.startDate),
       endDate: formatDate(booking.endDate),
-      sitter: booking.sitter._id,
-      user: booking.user._id,
+      user: booking.user.name,
+      sitter: booking.sitter.name,
     });
     setShowUpdateForm(true);
   };
 
   const handleUpdateBooking = async () => {
-    const { id, startDate, endDate, sitter, user } = formData;
+    const { id, startDate, endDate, user, sitter } = formData;
     const updatedData = {
       startDate,
       endDate,
-      sitter,
       user,
+      sitter,
     };
 
     try {
@@ -159,21 +159,21 @@ const BookingPage = ({ userId }) => {
             </label>
             <br />
             <label>
-              Sitter:
-              <input
-                type="text"
-                name="sitter"
-                value={formData.sitter}
-                onChange={handleChange}
-              />
-            </label>
-            <br />
-            <label>
               User:
               <input
                 type="text"
                 name="user"
                 value={formData.user}
+                onChange={handleChange}
+              />
+            </label>
+            <br />
+            <label>
+              Sitter:
+              <input
+                type="text"
+                name="sitter"
+                value={formData.sitter}
                 onChange={handleChange}
               />
             </label>
