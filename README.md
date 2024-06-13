@@ -4,14 +4,9 @@ Petbnb is a digital platform designed to connect pet owners with reliable and tr
 
 ## Description / User Story
 
-As a dog owner, it is important to find a reliable pet sitter to ensure that I can leave my pet in capable hands when I'm away. There are various criteria that I consider when searching for a sitter, including the sitter's experience with dogs, their knowledge of pet care, and their availability to meet my specific scheduling needs. Hence, an app that can showcase detailed information about the sitter is important to facilitate an informed decision.
+As a dog owner, it is crucial to find a reliable pet sitter to ensure that I can leave my pet in capable hands when I'm away. There are various criteria that I consider when searching for a sitter, including the sitter's experience with dogs, their knowledge of pet care, and their availability to meet my specific scheduling needs. Hence, an app that can showcase detailed information about the sitter is important to facilitate an informed decision.
 
-As a pet sitter, it is essential to manage my services efficiently. Based on personal experience, one of the top pet sitting providers I currently use does not offer the most seamless method. An ideal application should facilitate the process of finding, booking, and managing pet sitting services, allowing pet sitters to dedicate more time to caring for the pets rather than managing bookings.
-
-### Sample of current app i'm using:
-
-<img src="public/images/IMG_7585.png">
-<img src="public/images/IMG_7586.png">
+As a pet sitter, it is essential to manage my services efficiently. Based on personal experience, one of the top pet sitting providers that I currently use does not offer the most seamless method. An ideal application should facilitate the process of finding, booking, and managing pet sitting services, allowing pet sitters to dedicate more time to caring for the pets rather than managing bookings.
 
 ## Getting Started - Planning
 
@@ -131,7 +126,7 @@ clear local storage cache in application.
 - **Vite** - Fast development build tool
 - **React** - JavaScript library for building user interfaces
 - **Tailwind CSS** - Utility-first CSS framework for styling
-- **React Hot Toast** - Notification library for React
+- **React Big Calendar** - Calendar library for React
 
 ##### Backend
 
@@ -159,6 +154,11 @@ clear local storage cache in application.
 - **Bruno** - API testing tool (for backend validation)
 - **VS Code** - Code editor
 - **Figma** - Wireframe tool (for UI/UX design)
+
+- Multer
+  -Cloudinary
+  -React Big Calendar
+  -Datepicker
 
 ## Reference
 
